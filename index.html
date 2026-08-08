@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>М13</title>
+  <title>M13 GANG</title>
+  
+  <!-- Современный жирный шрифт -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -15,40 +17,47 @@
       box-sizing: border-box;
     }
 
+    /* Убираем скролл, растягиваем body */
     html, body {
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: #0f0f0f;
+      background: #000;
+      font-family: 'Inter', sans-serif;
     }
 
-    /* Фона с русской буквой М в названии */
-    .background {
+    /* Фон на весь экран (название файла с русской 'М') */
+    .background-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background-image: url('М13.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      z-index: 1;
     }
 
-    /* Контейнер SVG на весь экран */
-    .stage {
+    /* SVG-контейнер, который принудительно тянет текст */
+    .hero-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
+      z-index: 2;
       display: block;
     }
 
-    /* Текст в SVG, на который накладывается фильтр */
-    .title-text {
-      font-family: 'Syncopate', sans-serif;
-      font-weight: 700;
-      fill: rgba(255, 255, 255, 0.95);
+    /* Стили самого текста внутри SVG */
+    .gang-text {
+      font-weight: 900;
+      fill: rgba(255, 255, 255, 0.9); /* Почти белый цвет */
+      text-transform: uppercase;
       
-      /* Запрошенный эффект Liquid Glass */
+      /* ТОТ САМЫЙ ЭФФЕКТ ЖИДКОГО СТЕКЛА */
       backdrop-filter: url(#liquidFilter) blur(3px);
       -webkit-backdrop-filter: url(#liquidFilter) blur(3px);
     }
@@ -56,24 +65,27 @@
 </head>
 <body>
 
-  <!-- SVG-фильтр жидкого стекла -->
-  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
+  <!-- Блок с фоновой картинкой М13.png -->
+  <div class="background-layer"></div>
+
+  <!-- SVG, который растягивает текст "М13" по краям экрана -->
+  <!-- preserveAspectRatio="none" - это ключевой параметр для растягивания -->
+  <svg class="hero-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <text x="50" y="65" text-anchor="middle" class="gang-text" font-size="90">
+      М13
+    </text>
+  </svg>
+
+  <!-- Описание SVG-фильтра для эффекта жидкого стекла -->
+  <svg style="position: absolute; width: 0; height: 0;">
     <defs>
       <filter id="liquidFilter" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="25" xChannelSelector="R" yChannelSelector="G" />
+        <!-- Настройки искажения для эффекта жидкости -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </defs>
   </svg>
-
-  <main class="background">
-    <!-- preserveAspectRatio="none" дает полное растяжение по WxH -->
-    <svg class="stage" viewBox="0 0 1000 500" preserveAspectRatio="none">
-      <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" class="title-text">
-        М13
-      </text>
-    </svg>
-  </main>
 
 </body>
 </html>
