@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>M13</title>
+  <title>М13</title>
+  <!-- Подключение современного акцидентного шрифта -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -11,77 +16,44 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-      color: #fff;
+    html, body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
       background: #0f0f0f;
-      overflow-x: hidden;
     }
 
-    /* Фоновое изображение */
+    /* Фоновая картинка на весь экран */
     .background {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      background-image: url('M13.png');
+      width: 100%;
+      height: 100%;
+      background-image: url('М13.png'); /* Картинка с русской буквой М */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-    }
-
-    .content {
-      width: 100%;
-      max-width: 1200px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
-    /* Карточка с эффектом жидкого стекла на всю ширину */
-    .liquid-card {
-      width: 100%;
-      padding: 3rem 1.5rem;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Чистый текст во весь экран с эффектом жидкого стекла прямо на нем */
+    .title {
+      font-family: 'Syncopate', sans-serif;
+      font-size: 28vw; /* Растягивает по ширине окна */
+      line-height: 0.8;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
       text-align: center;
+      letter-spacing: -0.05em;
+      user-select: none;
 
-      /* Запрошенный эффект liquid glass */
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      /* Эффект Liquid Glass непосредственно на тексте */
       backdrop-filter: url(#liquidFilter) blur(3px);
       -webkit-backdrop-filter: url(#liquidFilter) blur(3px);
     }
 
-    .liquid-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    /* Главная надпись М13 по всей ширине */
-    .gang-title {
-      font-size: clamp(4rem, 15vw, 12rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      width: 100%;
-      margin: 0;
-      user-select: none;
-    }
-
-    /* Скрытие самого SVG-контейнера */
+    /* Скрытие SVG-контейнера */
     .svg-filters {
       position: absolute;
       width: 0;
@@ -92,23 +64,19 @@
 </head>
 <body>
 
-  <!-- Описание SVG-фильтра liquidFilter для корректной работы эффекта -->
+  <!-- SVG-фильтр для эффекта -->
   <svg class="svg-filters">
     <defs>
       <filter id="liquidFilter" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="25" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </defs>
   </svg>
 
-  <div class="background">
-    <main class="content">
-      <div class="liquid-card">
-        <h1 class="gang-title">М13</h1>
-      </div>
-    </main>
-  </div>
+  <main class="background">
+    <h1 class="title">М13</h1>
+  </main>
 
 </body>
 </html>
