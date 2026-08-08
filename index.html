@@ -1,11 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>M13 GANG</title>
-  
-  <!-- Современный жирный шрифт -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
@@ -17,75 +17,120 @@
       box-sizing: border-box;
     }
 
-    /* Убираем скролл, растягиваем body */
-    html, body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* Фон на весь экран (название файла с русской 'М') */
-    .background-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
+    html,
+    body {
       width: 100%;
       height: 100%;
-      background-image: url('М13.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      min-width: 100%;
+      min-height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
+      font-family: "Inter", sans-serif;
+    }
+
+    .background-layer {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: url("М13.png") center center / cover no-repeat;
       z-index: 1;
     }
 
-    /* SVG-контейнер, который принудительно тянет текст */
-    .hero-svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+    .hero {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       z-index: 2;
-      display: block;
+      overflow: hidden;
     }
 
-    /* Стили самого текста внутри SVG */
+    .hero svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
     .gang-text {
+      font-family: "Inter", sans-serif;
       font-weight: 900;
-      fill: rgba(255, 255, 255, 0.9); /* Почти белый цвет */
-      text-transform: uppercase;
-      
-      /* ТОТ САМЫЙ ЭФФЕКТ ЖИДКОГО СТЕКЛА */
-      backdrop-filter: url(#liquidFilter) blur(3px);
-      -webkit-backdrop-filter: url(#liquidFilter) blur(3px);
+      fill: rgba(255, 255, 255, 0.9);
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 0.3;
+      paint-order: stroke fill;
+    }
+
+    @media (max-aspect-ratio: 1/1) {
+      .gang-text {
+        font-size: 105px;
+      }
+    }
+
+    @media (min-aspect-ratio: 1/1) {
+      .gang-text {
+        font-size: 88px;
+      }
     }
   </style>
 </head>
-<body>
 
-  <!-- Блок с фоновой картинкой М13.png -->
+<body>
   <div class="background-layer"></div>
 
-  <!-- SVG, который растягивает текст "М13" по краям экрана -->
-  <!-- preserveAspectRatio="none" - это ключевой параметр для растягивания -->
-  <svg class="hero-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-    <text x="50" y="65" text-anchor="middle" class="gang-text" font-size="90">
-      М13
-    </text>
-  </svg>
+  <div class="hero">
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <text
+        class="gang-text"
+        x="50"
+        y="50"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        textLength="96"
+        lengthAdjust="spacingAndGlyphs"
+      >
+        М13
+      </text>
+    </svg>
+  </div>
 
-  <!-- Описание SVG-фильтра для эффекта жидкого стекла -->
-  <svg style="position: absolute; width: 0; height: 0;">
+  <svg
+    width="0"
+    height="0"
+    style="position:absolute;overflow:hidden"
+    aria-hidden="true"
+  >
     <defs>
-      <filter id="liquidFilter" x="-10%" y="-10%" width="120%" height="120%">
-        <!-- Настройки искажения для эффекта жидкости -->
-        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="G" />
+      <filter id="liquidFilter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.02"
+          numOctaves="3"
+          seed="7"
+          result="noise"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="noise"
+          scale="20"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
       </filter>
     </defs>
   </svg>
-
 </body>
 </html>
+```
